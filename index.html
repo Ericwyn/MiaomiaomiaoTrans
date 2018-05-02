@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Notification</title>
+    <meta name="viewport" content="width=device-width, initial-scale=0.9,  user-scalable=no">
+    <link rel="stylesheet" href="css/mdui.min.css">
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="mdui-theme-accent-pink mdui-theme-primary-teal ">
+    <div class="head">
+        <div class="mdui-float-left logo_text mdui-m-t-1 mdui-m-l-4">
+            <b class="color1">M</b>
+            <b class="color2">I</b>
+            <b class="color3">A</b>
+            <b class="color4">O</b>
+        </div>
+    </div>
+    <div class="second-height">
+        <div class="mdui-float-left logo_text mdui-m-t-2 mdui-m-l-4 mdui-typo">
+            <p class="color2" style="font-weight: 300;font-size: 20px" id="trans">翻译</p>
+        </div>
+    </div>
+    <div class="mdui-typo mdui-m-b-1">
+        <hr/>
+    </div>
+
+    <br>
+
+    <!--翻译框框 × 2-->
+    <div class="mdui-m-l-2 mdui-m-r-2 mdui-m-b-4">
+        <!--左边翻译框-->
+        <div class="mdui-container-fluid">
+            <div class="mdui-col-xs-12 mdui-col-sm-6">
+                <div style="" class="mdui-m-b-1">
+                    <button class="mdui-btn mdui-color-grey-100 mdui-text-color-black-text">
+                        <b id="namel">喵喵喵</b>
+                    </button>
+                    <button class="mdui-btn mdui-color-grey-100 mdui-text-color-black-text mdui-float-right" onclick="change()" id="change">
+                        <i class="mdui-icon material-icons">swap_horiz</i>
+                    </button>
+                </div>
+                <div contenteditable="true">
+                    <textarea class="textarea-input" style="min-height: 200px;width: 100%;resize: none;" id="input"></textarea>
+                </div>
+            </div>
+            <!--右边翻译框-->
+            <div class="mdui-col-xs-12 mdui-col-sm-6">
+                <div style="" class="mdui-m-b-1">
+                    <button class="mdui-btn mdui-color-grey-100 mdui-text-color-black-text">
+                        <b id="namer">英文</b>
+                    </button>
+                    <button class="mdui-btn mdui-color-blue-400 mdui-text-color-white mdui-m-l-1" onclick="trans()">
+                        <b>翻译</b>
+                    </button>
+                </div>
+                <textarea class="mdui-typo" style="height: 200px;width: 100%;resize: none;" disabled="disabled" id="output"></textarea>
+            </div>
+        </div>
+    </div>
+
+    <footer class="head">
+        <div>
+            <small class="mdui-float-left mdui-m-l-4 mdui-m-r-4 mdui-m-t-3 mdui-text-color-black-secondary">关于喵喵喵翻译</small>
+        </div>
+    </footer>
+</body>
+<script src="js/marked.js"></script>
+<script>
+    var flag = 1;
+    function encryption(str) {
+        var temp = '';
+        var res = '';
+        var binary;
+        for(var i =0;i<str.length;i++){
+            var log = str.charAt(i);
+            binary = (""+str.charAt(i)).charCodeAt().toString(2);
+            var length=binary.length;
+            for (var j=0;j<8-length;j++){
+                binary = '0'+binary;
+            }
+            temp = temp+binary;
+        }
+        for(i=0;i<temp.length;i++){
+            if (temp.charAt(i) === '1'){
+                res = res+'喵';
+            }else if (temp.charAt(i) === '0'){
+                res = res+'呜';
+            }
+        }
+        return res;
+    }
+
+    function decryption(encrypt) {
+        var binary = '';
+        for(var i=0;i<encrypt.length;i++){
+            if (encrypt.charAt(i) === '喵'){
+                binary = binary+'1';
+            }else if (encrypt.charAt(i) === '呜'){
+                binary = binary+'0';
+            }
+        }
+        console.log(binary);
+        var allRes = '';
+        var temp='';
+        var wordRes='';
+        for (i=0;i<binary.length;i+=8){
+            temp='';
+            for (var j=0;j<8;j++){
+                temp = temp+binary.charAt(i+j);
+            }
+            wordRes = wordRes+String.fromCharCode(parseInt(temp,2));
+        }
+        return wordRes;
+    }
+
+    function trans() {
+        //喵喵喵翻译成英文
+        if(flag === 1){
+            document.getElementById("output").value = decryption(
+                document.getElementById("input").value
+            )
+        }else {
+            document.getElementById("output").value = encryption(
+                document.getElementById("input").value
+            )
+        }
+    }
+
+    function change () {
+        document.getElementById("input").value ="";
+        document.getElementById("output").value ="";
+        if (flag == 1){
+            flag=2;
+            document.getElementById("namel").innerText="英文";
+            document.getElementById("namer").innerText="喵喵喵";
+        }else if (flag == 2){
+            flag=1;
+            document.getElementById("namel").innerText="喵喵喵";
+            document.getElementById("namer").innerText="英文";
+        }
+
+    }
+</script>
+</html>

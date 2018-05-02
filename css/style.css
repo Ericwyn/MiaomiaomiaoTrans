@@ -1,0 +1,41 @@
+.head{
+    min-height: 60px;
+    background: #f2f2f2;
+}
+
+.second-height{
+    min-height: 50px;
+}
+
+.logo_text{
+    font-size: 2.2em;
+    letter-spacing: -3px;
+}
+.color1{
+    color: #29a0f0;
+}
+
+.color2{
+    color: #e55248;
+}
+
+.color3{
+    color: #fcb13b;
+}
+
+.color4{
+    color: #4b9a52;
+}
+
+footer{
+    position:absolute;
+    bottom:0;
+    width:100%;
+}
+
+.textarea-input{
+    border-left: 1px solid #29a0f0;
+    border-right: 1px solid #29a0f0;
+    border-top: 1px solid #29a0f0;
+    border-bottom:1px solid #29a0f0
+}
